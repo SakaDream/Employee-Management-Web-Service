@@ -1,1 +1,1 @@
-web: java -jar target/employee-management-web-service-0.0.1-SNAPSHOT.jar
+web: java -jar target/*.war
