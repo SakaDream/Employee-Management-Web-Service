@@ -4,10 +4,7 @@ import com.sakadream.models.Employee;
 import com.sakadream.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,17 +38,23 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/addEmployee", method = POST)
-    public ResponseEntity<Void> addEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<Void> addEmployee(@RequestParam("token") String token, @RequestBody Employee employee) {
+        if(!token.equals(System.getenv("APP_TOKEN")))
+            return new ResponseEntity<Void>(BAD_REQUEST);
         return (service.addEmployee(employee)) ? new ResponseEntity<Void>(CREATED) : new ResponseEntity<Void>(BAD_REQUEST);
     }
 
     @RequestMapping(value = "/updateEmployee/{id}", method = POST)
-    public ResponseEntity<Void> updateEmployee(@PathVariable("id") int id, @RequestBody Employee employee) {
+    public ResponseEntity<Void> updateEmployee(@PathVariable("id") int id, @RequestParam("token") String token, @RequestBody Employee employee) {
+        if(!token.equals(System.getenv("APP_TOKEN")))
+            return new ResponseEntity<Void>(BAD_REQUEST);
         return (service.updateEmployee(id, employee)) ? new ResponseEntity<Void>(OK) : new ResponseEntity<Void>(NOT_FOUND);
     }
 
     @RequestMapping(value = "/deleteEmployee/{id}", method = POST)
-    public ResponseEntity<Void> deleteEmployee(@PathVariable("id") int id) {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable("id") int id, @RequestParam("token") String token) {
+        if(!token.equals(System.getenv("APP_TOKEN")))
+            return new ResponseEntity<Void>(BAD_REQUEST);
         return (service.deleteEmployee(id)) ? new ResponseEntity<Void>(OK) : new ResponseEntity<Void>(NOT_FOUND);
     }
 }
