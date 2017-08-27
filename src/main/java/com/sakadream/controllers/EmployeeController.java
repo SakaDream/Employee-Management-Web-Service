@@ -25,14 +25,14 @@ public class EmployeeController {
         return (employees.isEmpty()) ? new ResponseEntity<List<Employee>>(NO_CONTENT) : new ResponseEntity<List<Employee>>(employees, OK);
     }
 
-    @RequestMapping(value = "/employee", method = GET)
-    public ResponseEntity<Employee> getById(@RequestParam("id") int id) {
+    @RequestMapping(value = "/employee", params = "id", method = GET)
+    public ResponseEntity<Employee> getById(@RequestParam int id) {
         Employee employee = service.findById(id);
         return (employee == null) ? new ResponseEntity<Employee>(NOT_FOUND) : new ResponseEntity<Employee>(employee, OK);
     }
 
-    @RequestMapping(value = "/employee", method = GET)
-    public ResponseEntity<Employee> getByName(@RequestParam("name") String name) {
+    @RequestMapping(value = "/employee", params = "name", method = GET)
+    public ResponseEntity<Employee> getByName(@RequestParam String name) {
         Employee employee = service.findByName(name);
         return (employee.getId() == 0) ? new ResponseEntity<Employee>(NOT_FOUND) : new ResponseEntity<Employee>(employee, OK);
     }
