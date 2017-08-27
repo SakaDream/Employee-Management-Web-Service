@@ -16,9 +16,9 @@ public class HibernateUtil {
         try {
             Properties prop = new Properties();
             prop.put("hibernate.connection.driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            prop.put("hibernate.connection.url", "jdbc:sqlserver://sakadream-ws-test.database.windows.net:1433;database=WebServiceTest");
-            prop.put("hibernate.connection.username", "ry9CAL3W");
-            prop.put("hibernate.connection.password", "whH!nBZP4g%^5xu2");
+            prop.put("hibernate.connection.url", System.getenv("DB_URL"));
+            prop.put("hibernate.connection.username", System.getenv("DB_USERNAME"));
+            prop.put("hibernate.connection.password", System.getenv("DB_PASSWORD"));
             prop.put("hibernate.current_session_context_class", "thread");
             prop.put("hibernate.query.factory_class", "org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory");
             prop.put("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
