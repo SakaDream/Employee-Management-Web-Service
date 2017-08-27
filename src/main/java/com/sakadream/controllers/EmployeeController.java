@@ -25,14 +25,14 @@ public class EmployeeController {
         return (employees.isEmpty()) ? new ResponseEntity<List<Employee>>(NO_CONTENT) : new ResponseEntity<List<Employee>>(employees, OK);
     }
 
-    @RequestMapping(value = "/employee/id/{id}", method = GET)
-    public ResponseEntity<Employee> getById(@PathVariable("id") int id) {
+    @RequestMapping(value = "/employee", method = GET)
+    public ResponseEntity<Employee> getById(@RequestParam("id") int id) {
         Employee employee = service.findById(id);
         return (employee == null) ? new ResponseEntity<Employee>(NOT_FOUND) : new ResponseEntity<Employee>(employee, OK);
     }
 
-    @RequestMapping(value = "/employee/name/{name}", method = GET)
-    public ResponseEntity<Employee> getByName(@PathVariable("name") String name) {
+    @RequestMapping(value = "/employee", method = GET)
+    public ResponseEntity<Employee> getByName(@RequestParam("name") String name) {
         Employee employee = service.findByName(name);
         return (employee.getId() == 0) ? new ResponseEntity<Employee>(NOT_FOUND) : new ResponseEntity<Employee>(employee, OK);
     }
@@ -44,15 +44,15 @@ public class EmployeeController {
         return (service.addEmployee(employee)) ? new ResponseEntity<Void>(CREATED) : new ResponseEntity<Void>(BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/updateEmployee/{id}", method = POST)
-    public ResponseEntity<Void> updateEmployee(@PathVariable("id") int id, @RequestParam("token") String token, @RequestBody Employee employee) {
+    @RequestMapping(value = "/updateEmployee", method = POST)
+    public ResponseEntity<Void> updateEmployee(@RequestParam("id") int id, @RequestParam("token") String token, @RequestBody Employee employee) {
         if(!token.equals(System.getenv("APP_TOKEN")))
             return new ResponseEntity<Void>(BAD_REQUEST);
         return (service.updateEmployee(id, employee)) ? new ResponseEntity<Void>(OK) : new ResponseEntity<Void>(NOT_FOUND);
     }
 
-    @RequestMapping(value = "/deleteEmployee/{id}", method = POST)
-    public ResponseEntity<Void> deleteEmployee(@PathVariable("id") int id, @RequestParam("token") String token) {
+    @RequestMapping(value = "/deleteEmployee", method = POST)
+    public ResponseEntity<Void> deleteEmployee(@RequestParam("id") int id, @RequestParam("token") String token) {
         if(!token.equals(System.getenv("APP_TOKEN")))
             return new ResponseEntity<Void>(BAD_REQUEST);
         return (service.deleteEmployee(id)) ? new ResponseEntity<Void>(OK) : new ResponseEntity<Void>(NOT_FOUND);
