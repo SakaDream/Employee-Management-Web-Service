@@ -58,7 +58,7 @@ public class EmployeeController {
             Employee employee) {
         if (!token.equals(System.getenv("APP_TOKEN")))
             return new ResponseEntity<Void>(BAD_REQUEST);
-        return (service.updateEmployee(id, employee)) ? new ResponseEntity<Void>(OK)
+        return (service.updateEmployee(id, employee)) ? new ResponseEntity<Void>(NO_CONTENT)
                 : new ResponseEntity<Void>(NOT_FOUND);
     }
 
@@ -67,6 +67,6 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteEmployee(@RequestParam("token") String token, @RequestParam("id") int id) {
         if (!token.equals(System.getenv("APP_TOKEN")))
             return new ResponseEntity<Void>(BAD_REQUEST);
-        return (service.deleteEmployee(id)) ? new ResponseEntity<Void>(OK) : new ResponseEntity<Void>(NOT_FOUND);
+        return (service.deleteEmployee(id)) ? new ResponseEntity<Void>(NO_CONTENT) : new ResponseEntity<Void>(NOT_FOUND);
     }
 }
