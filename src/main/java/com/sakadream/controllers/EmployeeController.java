@@ -54,8 +54,9 @@ public class EmployeeController {
 
     @RequestMapping(method = PUT, consumes = { APPLICATION_FORM_URLENCODED_VALUE,
             APPLICATION_JSON_UTF8_VALUE }, produces = { APPLICATION_ATOM_XML_VALUE, APPLICATION_JSON_UTF8_VALUE })
-    public ResponseEntity<Void> updateEmployee(@RequestParam("token") String token, @RequestParam("id") int id, 
+    public ResponseEntity<Void> updateEmployee(@RequestParam("token") String token, @RequestParam("id") int id,
             Employee employee) {
+        System.out.println("/employees, method PUT");
         if (!token.equals(System.getenv("APP_TOKEN")))
             return new ResponseEntity<Void>(BAD_REQUEST);
         return (service.updateEmployee(id, employee)) ? new ResponseEntity<Void>(NO_CONTENT)
@@ -67,6 +68,7 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteEmployee(@RequestParam("token") String token, @RequestParam("id") int id) {
         if (!token.equals(System.getenv("APP_TOKEN")))
             return new ResponseEntity<Void>(BAD_REQUEST);
-        return (service.deleteEmployee(id)) ? new ResponseEntity<Void>(NO_CONTENT) : new ResponseEntity<Void>(NOT_FOUND);
+        return (service.deleteEmployee(id)) ? new ResponseEntity<Void>(NO_CONTENT)
+                : new ResponseEntity<Void>(NOT_FOUND);
     }
 }
