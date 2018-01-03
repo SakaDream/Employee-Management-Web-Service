@@ -86,12 +86,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         boolean b = true;
         try {
             System.out.println("Updating employee...");
+            System.out.println("Id: " + id);
+            System.out.println("Employee.name" + employee.getName());
             session.getTransaction().begin();
             Employee updateEmployee = (Employee) session.get(Employee.class, id);
-            employee.setName(employee.getName());
-            employee.setAddress(employee.getAddress());
-            employee.setPhone(employee.getPhone());
-            employee.setSalary(employee.getSalary());
+            updateEmployee.setName(employee.getName());
+            updateEmployee.setAddress(employee.getAddress());
+            updateEmployee.setPhone(employee.getPhone());
+            updateEmployee.setSalary(employee.getSalary());
             session.update(updateEmployee);
             session.getTransaction().commit();
         } catch(Exception e) {
