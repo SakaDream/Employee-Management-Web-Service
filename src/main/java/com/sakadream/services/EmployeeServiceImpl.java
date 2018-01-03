@@ -55,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Query query = session.createQuery("SELECT e FROM Employee AS e WHERE e.name = :name");
             query.setString("name", name);
             employees = query.list();
-            if(employees.size() > 0) {
+            if (employees.size() > 0) {
                 employee = employees.get(0);
             }
             session.getTransaction().commit();
@@ -69,6 +69,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Boolean addEmployee(Employee employee) {
         boolean b = true;
+        System.out.println("Adding employee...");
+        System.out.println("Employee.address: " + employee.getAddress());
         try {
             session.getTransaction().begin();
             session.save(employee);
@@ -87,7 +89,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             System.out.println("Updating employee...");
             System.out.println("Id: " + id);
-            System.out.println("Employee.address" + employee.getAddress());
+            System.out.println("Employee.address: " + employee.getAddress());
             session.getTransaction().begin();
             Employee updateEmployee = (Employee) session.get(Employee.class, id);
             updateEmployee.setName(employee.getName());
@@ -96,7 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             updateEmployee.setSalary(employee.getSalary());
             session.update(updateEmployee);
             session.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
             b = false;
