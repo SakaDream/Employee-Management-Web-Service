@@ -85,6 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Boolean updateEmployee(int id, Employee employee) {
         boolean b = true;
         try {
+            System.out.println("Updating employee...");
             session.getTransaction().begin();
             Employee updateEmployee = (Employee) session.get(Employee.class, id);
             employee.setName(employee.getName());
