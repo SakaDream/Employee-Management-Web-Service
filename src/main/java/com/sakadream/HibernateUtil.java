@@ -1,8 +1,13 @@
 package com.sakadream;
 
 import com.sakadream.models.Employee;
+
+import org.apache.catalina.core.StandardService;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 import java.util.Properties;
 
@@ -24,11 +29,17 @@ public class HibernateUtil {
             prop.put("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
             prop.put("hibernate.show_sql", "true");
 
-            sessionFactory = new AnnotationConfiguration()
-                    .addPackage("com.sakadream.models")
-                    .addProperties(prop)
-                    .addAnnotatedClass(Employee.class)
-                    .buildSessionFactory();
+            Configuration config = new Configuration()
+                .addPackage("com.sakadream.models")
+                .addProperties(prop)
+                .addAnnotatedClass(Employee.class)
+                .configure();
+
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                .applySettings(config.getProperties())
+                .build();
+
+            sessionFactory = config.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
             // Log the exception.
             System.err.println("Initial SessionFactory creation failed." + ex);
