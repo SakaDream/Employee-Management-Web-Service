@@ -2,10 +2,8 @@ package com.sakadream;
 
 import com.sakadream.models.Employee;
 
-import org.apache.catalina.core.StandardService;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 

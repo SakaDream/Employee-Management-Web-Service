@@ -19,6 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Session session = HibernateUtil.getSessionFactory().openSession();
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Employee> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
         try {
@@ -47,6 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Employee findByName(String name) {
         List<Employee> employees = new ArrayList<Employee>();
         Employee employee = new Employee();
