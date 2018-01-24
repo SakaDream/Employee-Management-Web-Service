@@ -3,10 +3,7 @@ package com.sakadream;
 import com.sakadream.models.Employee;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-
+import org.hibernate.cfg.AnnotationConfiguration;
 import java.util.Properties;
 
 /**
