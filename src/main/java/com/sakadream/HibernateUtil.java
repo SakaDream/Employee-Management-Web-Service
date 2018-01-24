@@ -27,17 +27,11 @@ public class HibernateUtil {
             prop.put("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
             prop.put("hibernate.show_sql", "true");
 
-            Configuration config = new Configuration()
-                .addPackage("com.sakadream.models")
-                .addProperties(prop)
-                .addAnnotatedClass(Employee.class)
-                .configure();
-
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(config.getProperties())
-                .build();
-
-            sessionFactory = config.buildSessionFactory(serviceRegistry);
+            sessionFactory = new AnnotationConfiguration()
+                    .addPackage("com.sakadream.models")
+                    .addProperties(prop)
+                    .addAnnotatedClass(Employee.class)
+                    .buildSessionFactory();
         } catch (Throwable ex) {
             // Log the exception.
             System.err.println("Initial SessionFactory creation failed." + ex);
